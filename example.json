@@ -1,0 +1,13 @@
+{
+	"people": [
+		{
+			"name": "John",
+			"age": 18
+		},
+		{
+			"name": "Anna",
+			"age": 24
+		}
+	],
+	"timestamp": 1509801440827
+}
