@@ -9,7 +9,7 @@
 		<script src="./json.js"></script>
 		<script>
 			// example js
-			let j = new Json('./example.json').search('people').print();
+			let j = new Json('./example.json').select('users').where('name', '?', 'John').get();
 			// fetch from file
 			console.log(j);
 		</script>
