@@ -1,13 +1,20 @@
 {
-	"people": [
+	"users": [
 		{
-			"name": "John",
-			"age": 18
+			"name": "John Doe",
+			"age": 26
 		},
 		{
-			"name": "Anna",
-			"age": 24
+			"name": "Daniel Doe",
+			"age": 17
+		},
+		{
+			"name": "John Doe",
+			"age": 55
+		},
+		{
+			"name": "Anna Doe",
+			"age": 19
 		}
-	],
-	"timestamp": 1509801440827
+	]
 }

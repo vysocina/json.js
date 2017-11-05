@@ -52,34 +52,63 @@
 			xhr.open('GET', this.input, false);
 			xhr.send();
 		};
-		// search function
-		search(str) {
+		// select main parameter of json
+		select(str) {
 			// search for string in parent
-			for(let i = 0; i < Object.keys(this.parent).length; i++) {
-				// save object keys
-				const key = Object.keys(this.parent)[i];
-				if(key.indexOf(str) > -1) {
-					// found this key
-					this.history.push(this.parent);
-					this.parent = this.parent[key];
-					// return itself
-					return this;
-				} else {
-					// cant find value, show err
-					this.error('can\'t find value of ' + str);
-					// return itself
-					return this;
-				}
+			if(typeof this.parent[str] !== 'undefined') {
+				// found this key
+				this.history.push(this.parent);
+				this.parent = this.parent[str];
+				// return itself
+				return this;
+			} else {
+				// cant find value, show err
+				this.error('can\'t find value of ' + str);
+				// return itself
+				return this;
 			}
 		};
-		// print function
-		print(str) {
-			// check if string is set
-			if(typeof str !== 'string') {
-				str = null;
+		// search in json
+		where(key, operator, value) {
+			// reset print
+			this.print = [];
+			// search in whole parent
+			for(let i = 0; i < this.parent.length; i++) {
+				// save each item
+				const item = this.parent[i];
+				// check if key in item exists
+				if(typeof item[key] !== 'undefined') {
+					// 'equals' operator
+					if(operator === 'equals' ||
+							operator === '=' ||
+							operator === '==') {
+						if(item[key] === value) {
+							// found something, pushing into result
+							this.print.push(item);
+						}
+					// 'contains' operator
+					} else if(operator === 'contains' ||
+							operator === 'like' ||
+							operator === '?') {
+						if(('' + item[key]).indexOf('' + value) > -1) {
+							// found something, pushing into result
+							this.print.push(item);
+						}
+					// unknown operator, error
+					} else {
+						this.error('unknown opearator');
+						// return itself
+						return this;
+					}
+				}
 			}
-			// if input is null, return parent, otherwise return value
-			return str === null ? this.parent : this.parent[str];
+			// return itself
+			return this;
+		}
+		// print function
+		get() {
+			// return print value
+			return this.print;
 		}
 		// error handlers
 		error(str) {
