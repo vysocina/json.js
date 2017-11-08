@@ -46,6 +46,9 @@
 					self.history = [];
 					// return itself
 					return self;
+				} else if(xhr.status === 404) {
+					// cant file file
+					return self.error('can\'t find file');
 				}
 			}
 			// creating actual request
